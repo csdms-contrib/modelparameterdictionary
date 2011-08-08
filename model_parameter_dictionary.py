@@ -139,9 +139,13 @@ class ModelParameterDictionary:
     # An error is generated if MY_INT isn't in the dictionary or
     # if its value is not an integer.
     #------------------------------------------------------------
-    def read_int(self, key):
+    def read_int(self, key, default_value = None ):
         try: my_value = self.param_dict[key]
-        except KeyError: self.handle_missing_key( key )
+        except KeyError: 
+        	if default_value == None:
+        		self.handle_missing_key( key )
+        	else:
+        		my_value = default_value
         try: my_int = int( my_value )
         except ValueError: self.handle_value_error( key, 'an integer' )
         return my_int
@@ -151,9 +155,13 @@ class ModelParameterDictionary:
     # An error is generated if MY_FLOAT isn't in the dictionary or
     # if its value is not a number.
     #------------------------------------------------------------
-    def read_float(self, key):
+    def read_float(self, key, default_value = None):
         try: my_value = self.param_dict[key]
-        except KeyError: self.handle_missing_key( key )
+        except KeyError:
+        	if default_value == None:
+	        	self.handle_missing_key( key )
+	        else:
+	        	my_value = default_value
         try: my_float = float( my_value )
         except ValueError:
             self.handle_value_error( key, 'a floating-point number' )
@@ -163,21 +171,29 @@ class ModelParameterDictionary:
     # Use this like: s = read_string( 'MY_STRING' )
     # An error is generated if MY_STRING isn't in the dictionary.
     #------------------------------------------------------------
-    def read_string(self, key):
+    def read_string(self, key, default_value = None):
         try: my_value = self.param_dict[key]
-        except KeyError: self.handle_missing_key( key )
+        except KeyError:
+        	if default_value == None:
+	        	self.handle_missing_key( key )
+	        else:
+	        	my_value = default_value
         return str( my_value )
     #------------------------------------------------------------
     # read_bool:
     # Use this like: b = read_bool( 'MY_BOOL' )
     # An error is generated if MY_BOOL isn't 0, 1, True or False
     #------------------------------------------------------------
-    def read_bool(self, key):
+    def read_bool(self, key, default_value = None):
         try: my_value = self.param_dict[key]
-        except KeyError: self.handle_missing_key( key )
-        if my_value=='True' or my_value=='1' or my_value==1:
+        except KeyError:
+        	if default_value == None:
+	        	self.handle_missing_key( key )
+	        else:
+	        	my_value = default_value
+        if my_value=='True' or my_value=='true' or my_value=='1' or my_value==1:
             return True
-        elif my_value=='False' or my_value=='0' or my_value==0:
+        elif my_value=='False' or my_value=='false' or my_value=='0' or my_value==0:
             return False
         else:
             self.handle_value_error( key, 

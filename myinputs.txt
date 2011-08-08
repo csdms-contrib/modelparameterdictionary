@@ -1,0 +1,10 @@
+PI: the text "PI" is an example of a KEY
+3.1416
+AVOGADROS_NUMBER: this is another
+6.022e23
+FAVORITE_FRUIT: yet another
+mangoes
+NUMBER_OF_MANGO_WALKS: this one is an integer
+4
+ALSO_LIKES_APPLES: this is a boolean
+True
